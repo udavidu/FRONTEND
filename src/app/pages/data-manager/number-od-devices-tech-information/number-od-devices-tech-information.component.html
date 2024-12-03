@@ -1,0 +1,155 @@
+<div class="bg-gray-900 w-full h-20 fixed top-0 flex items-center" style="margin-left: -16px; justify-content: start;">
+  <h1 class="text-2xl font-bold text-white ml-9 flex items-center">
+    <i class="bi bi-journal-code mr-4"></i>Number of Devices + Detail Tech Information</h1>
+</div>
+
+
+
+
+<div class="w-full px-1 mt-20">
+  <div class="w-full bg-white shadow-xl rounded-lg px-8 py-6">
+    <table class="w-full border border-gray-200 rounded-lg overflow-hidden">
+      <thead class="bg-blue-100 text-blue-700 font-semibold uppercase text-sm">
+      <tr>
+        <th class="py-3 px-5 text-left" colspan="6">Device Counts Summary</th>
+      </tr>
+      </thead>
+      <thead class="bg-gray-700 text-white font-semibold uppercase text-sm">
+      <tr>
+        <th class="py-3 px-5 text-left">Details</th>
+        <th class="py-3 px-12 text-left">
+          <div class="flex items-center">
+            <span class="text-xs font-semibold mr-3">Start Date:</span>
+            <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate" (ngModelChange)="onDateChange()" class="w-29 px-3 py-1 text-sm text-gray-900 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"/>
+          </div>
+        </th>
+        <th class="py-3 px-3 text-left">
+          <div class="flex items-center">
+            <span class="text-xs font-semibold mr-2">End Date:</span>
+            <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate" (ngModelChange)="onDateChange()" class="w-29 px-3 py-1 text-sm text-gray-900 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+          </div>
+        </th>
+        <th class="py-3 px-3 text-left flex-grow"></th>
+        <th class="py-3 px-3 text-left">
+          <div class="flex items-center justify-end">
+            <span class="text-xs font-semibold mr-2">Search:</span>
+            <input type="text" class="bg-gray-800 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500 w-32 sm:w-48" placeholder="Search by ID or Model..."/>
+          </div>
+        </th>
+      </tr>
+      </thead>
+      <tbody *ngIf="startDate && endDate">
+      <tr>
+        <td colspan="5" class="text-center text-blue-600 py-4">
+          Records Period from {{ startDate | date:'MM/dd/yyyy' }} to {{ endDate | date:'MM/dd/yyyy' }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="container mx-auto mt-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div *ngFor="let product of stockData" class="rounded-lg shadow-md mb-4 bg-gray-200">
+          <div class="p-6 rounded-lg">
+            <h5 class="text-xl font-bold">{{ product.brand }}</h5>
+            <h1 class="text-xl">{{ (product.productType) }}</h1>
+            <p class="text-gray-700"><strong>ID:</strong> {{ product.id }}</p>
+            <div class="bg-white mt-3 rounded-lg shadow-inner">
+              <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+                <span>Display Information</span>
+              </div>
+              <div class="p-5"> <!-- Changed from p-4 to p-5 for 20px padding -->
+                <p class="text-gray-700"><strong>Display Size:</strong> {{ product.displaySize }}</p>
+                <p class="text-gray-700"><strong>Refresh Rate:</strong> {{ product.refreshRate }}</p>
+                <p class="text-gray-700"><strong>Display Technology:</strong> {{ product.displayTech }}</p>
+                <p class="text-gray-700"><strong>Pixel Resolution:</strong> {{ product.pixelResolutions }}</p>
+                <p class="text-gray-700"><strong>Max Resolution:</strong> {{ product.maxResolutions }}</p>
+              </div>
+              <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+                <span>Connectivity</span>
+              </div>
+              <div class="p-5"> <!-- Changed from p-4 to p-5 for 20px padding -->
+                <p class="text-gray-700"><strong>Outputs:</strong> {{ product.output }}</p>
+                <p class="text-gray-700"><strong>Speaker:</strong> {{ product.speaker }}</p>
+                <p class="text-gray-700"><strong>Wireless Connections:</strong> {{ product.wirelessConnections }}</p>
+                <p class="text-gray-700"><strong>Bluetooth:</strong> {{ product.bluetooth }}</p>
+                <p class="text-gray-700"><strong>Connections:</strong> {{ product.connections }}</p>
+                <p class="text-gray-700"><strong>Smart:</strong> {{ product.smart }}</p>
+                <p class="text-gray-700"><strong>OS:</strong> {{ product.os }}</p>
+                <p class="text-gray-700"><strong>VESA:</strong> {{ product.vesa }}</p>
+              </div>
+              <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+                <span>Additional Information</span>
+              </div>
+              <div class="p-5"> <!-- Changed from p-4 to p-5 for 20px padding -->
+                <p class="text-gray-700"><strong>Color:</strong> {{ product.color }}</p>
+                <p class="text-gray-700"><strong>Production Year:</strong> {{ product.productionYear }}</p>
+                <p class="text-gray-700"><strong>Stock Date:</strong> {{ product.stockDate }}</p>
+                <p class="text-gray-700"><strong>Price:</strong> {{ product.price | currency}}</p>
+              </div>
+              <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+                <span>Stock Information</span>
+              </div>
+              <div class="p-5"> <!-- Changed from p-4 to p-5 for 20px padding -->
+                <p class="text-gray-700"><strong>Initial Stock: <del>(Period)</del>:</strong> {{ product.totalOnStock }}</p>
+                <p class="text-gray-700"><strong>Current Stock: <del>(Period)</del>:</strong> {{ product.totalRemainsExists }}</p>
+                <p class="text-gray-700"><strong>Total Sold: <del>(Period)</del>:</strong> {{ product.soldNum }}</p>
+                <p class="text-gray-700"><strong>Sold (Period):</strong> {{ product.soldCount }}</p>
+                <p class="text-gray-700"><strong>Remainig (Period):</strong> {{ product.remaining }}</p>
+                <p class="text-gray-700"><strong>Stock From {{ startDate }}:</strong> {{ product.stockFromDate }}</p>
+                <p class="text-gray-700"><strong>Stock To {{ endDate }}:</strong> {{ product.stockToEndDate }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="w-full lg:9 mt-12">
+    <div class="bg-white shadow-xl rounded-lg px-8 py-6">
+      <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+        <thead class="bg-blue-100 text-blue-700 font-semibold uppercase text-sm">
+        <tr>
+          <th class="py-3 px-5 text-left" colspan="8">Model Summary</th>
+        </tr>
+        </thead>
+        <thead class="bg-gray-700 text-white font-semibold uppercase text-sm">
+        <tr>
+          <th class="py-3 px-6 text-left">Type</th>
+          <th class="py-3 px-6 text-left">Brand</th>
+          <th class="py-3 px-5 text-center">Model</th>
+          <th class="py-3 px-5 text-center">Ini. Stock</th>
+          <th class="py-3 px-5 text-center">Curr. Sold</th>
+          <th class="py-3 px-5 text-center">Remain</th>
+          <th class="py-3 px-5 text-center">Stock from ({{ startDate ? startDate : 'yyyy/mm/dd' }})</th>
+          <th class="py-3 px-5 text-center">Stock to ({{ endDate ? endDate : 'yyyy/mm/dd' }})</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <ng-container *ngFor="let brand of summaryData">
+          <tr class="hover:bg-blue-50 even:bg-gray-50" *ngFor="let model of brand.Model; let i = index">
+            <td class="py-3 px-5 text-left text-gray-800 border-b border-gray-200" *ngIf="i === 0" [attr.rowspan]="brand.Model.length">{{ model.productType }}</td>
+            <td class="py-3 px-5 text-left text-gray-800 border-b border-gray-200" *ngIf="i === 0" [attr.rowspan]="brand.Model.length">{{ brand.brandName[0] }}</td>
+            <td class="py-3 px-5 text-center text-gray-900 border-b border-gray-200">{{ model.modelName[0] }}</td>
+            <td class="py-3 px-5 text-center text-gray-900 border-b border-gray-200">{{ model.totalStock[0] }}</td>
+            <td class="py-3 px-5 text-center text-gray-900 border-b border-gray-200">{{ model.totalSold[0] }}</td>
+            <td class="py-3 px-5 text-center text-gray-900 border-b border-gray-200">{{ model.remaining[0] }}</td>
+            <td class="py-3 px-5 text-center text-gray-900 border-b border-gray-200">{{ model.stockFromDate[0] }}</td>
+            <td class="py-3 px-5 text-center text-gray-900 border-b border-gray-200">{{ model.stockToEndDate[0] }}</td>
+          </tr>
+        </ng-container>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="summary.length === 0" class="mt-4 p-4 bg-red-100 border border-red-500 text-red-700 rounded-md">
+    <p class="text-center">No data found for the selected date range. Please pick Start Date & End Date.</p>
+  </div>
+</div>
+

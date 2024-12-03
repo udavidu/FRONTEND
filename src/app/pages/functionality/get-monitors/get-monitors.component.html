@@ -1,0 +1,74 @@
+<div class="bg-gray-900 w-full h-20 fixed top-0 flex items-center" style="margin-left: -16px; justify-content: start;">
+  <h1 class="text-2xl font-bold text-white ml-9 flex items-center">
+    <i class="bi bi-display-fill mr-4"></i>Monitors</h1>
+</div>
+
+<div class="container mx-auto mt-20">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div *ngFor="let monitor of monitors" class="bg-gray-200 rounded-lg shadow-md mb-4">
+      <div class="bg-gray-200 p-4 rounded-lg"> <!-- Added rounded-lg here -->
+        <h5 class="text-xl font-bold">{{ monitor.Brand }}</h5>
+        <p class="text-gray-700"><strong>ID:</strong> {{ monitor.id }}</p>
+        <p class="text-gray-700"><strong>Model:</strong> {{ monitor.Model }}</p>
+
+
+
+        <!-- Display Information Section -->
+        <div class="bg-white mt-3 rounded-lg shadow-inner rounded-lg">
+          <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+            <span>Display Information</span>
+            <button (click)="toggleDisplayInfo()" class="text-white focus:outline-none">
+              <i class="fas fa-eye" [ngClass]="{'fa-eye white-icon': showDisplayInfo, 'fa-eye-slash white-icon': !showDisplayInfo}"></i>
+            </button>
+          </div>
+          <div [ngClass]="getAnimationClass('display')" class="p-4" *ngIf="showDisplayInfo">
+            <p class="text-gray-700"><strong>Display Size:</strong> {{ monitor.DisplaySize }}</p>
+            <p class="text-gray-700"><strong>Refresh Rate:</strong> {{ monitor.RefreshRate }}</p>
+            <p class="text-gray-700"><strong>Display Technology:</strong> {{ monitor.DisplayTech }}</p>
+            <p class="text-gray-700"><strong>Pixel Resolution:</strong> {{ monitor.PixelResolutions }}</p>
+            <p class="text-gray-700"><strong>Max Resolution:</strong> {{ monitor.MaxResolutions }}</p>
+          </div>
+        </div>
+
+        <!-- Connectivity Section -->
+        <div class="bg-white mt-3 rounded-lg shadow-inner rounded-lg">
+          <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+            <span>Connectivity</span>
+            <button (click)="toggleConnectivity()" class="text-white focus:outline-none">
+              <i class="fas fa-eye" [ngClass]="{'fa-eye white-icon': showConnectivity, 'fa-eye-slash white-icon': !showConnectivity}"></i>
+            </button>
+          </div>
+          <div [ngClass]="getAnimationClass('connectivity')" class="p-4" *ngIf="showConnectivity">
+            <p class="text-gray-700"><strong>Outputs:</strong> {{ monitor.Output }}</p>
+            <p class="text-gray-700"><strong>Speaker:</strong> {{ monitor.Speaker }}</p>
+            <p class="text-gray-700"><strong>Wireless Connections:</strong> {{ monitor.WirelessConnections }}</p>
+            <p class="text-gray-700"><strong>Bluetooth:</strong> {{ monitor.Bluetooth }}</p>
+            <p class="text-gray-700"><strong>Connections:</strong> {{ monitor.Connenctions }}</p>
+            <p class="text-gray-700"><strong>Smart:</strong> {{ monitor.Smart }}</p>
+            <p class="text-gray-700"><strong>OS:</strong> {{ monitor.OS }}</p>
+            <p class="text-gray-700"><strong>VESA:</strong> {{ monitor.VESA }}</p>
+          </div>
+        </div>
+
+        <!-- Additional Information Section -->
+        <div class="bg-white mt-3 rounded-lg shadow-inner rounded-lg">
+          <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+            <span>Additional Information</span>
+            <button (click)="toggleAdditionalInfo()" class="text-white focus:outline-none">
+              <i class="fas fa-eye" [ngClass]="{'fa-eye white-icon': showAdditionalInfo, 'fa-eye-slash white-icon': !showAdditionalInfo}"></i>
+            </button>
+          </div>
+          <div [ngClass]="getAnimationClass('additional')" class="p-4" *ngIf="showAdditionalInfo">
+            <p class="text-gray-700"><strong>Color:</strong> {{ monitor.Color }}</p>
+            <p class="text-gray-700"><strong>Production Year:</strong> {{ monitor.ProductionYear }}</p>
+            <p class="text-gray-700"><strong>Stock Date:</strong> {{ monitor.StockDate }}</p>
+            <p class="text-gray-700"><strong>Stock:</strong> {{ monitor.Stock }}</p>
+            <p class="text-gray-700"><strong>Sold:</strong> {{ monitor.Sold }}</p>
+            <p class="text-gray-700"><strong>Price:</strong> {{ monitor.Price | currency}}</p>
+            <p class="text-gray-700"><strong>Profit:</strong> {{ monitor.Profit | currency }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="h-screen fixed flex flex-col bg-gray-800 text-white" [ngClass]="{'w-16': isCollapsed, 'w-64': !isCollapsed}">
+  <div class="flex items-center justify-between h-20 bg-gray-900 p-2" [ngClass]="{'justify-center': isCollapsed}">
+    <h1 class="text-2xl font-bold" *ngIf="!isCollapsed">My-Store-App</h1>
+    <div class="flex-grow flex justify-center items-center" *ngIf="isCollapsed">
+      <button (click)="toggleCollapse()" class="text-white focus:outline-none">
+        <i class="fas" [ngClass]="{'fa-chevron-left': !isCollapsed, 'fa-chevron-right': isCollapsed}"></i>
+      </button>
+    </div>
+    <button (click)="toggleCollapse()" class="text-white focus:outline-none" *ngIf="!isCollapsed">
+      <i class="fas" [ngClass]="{'fa-chevron-left': !isCollapsed, 'fa-chevron-right': isCollapsed}"></i>
+    </button>
+  </div>
+  <nav class="flex flex-col flex-grow">
+    <!-- Divider Line -->
+    <hr class="border-t border-gray-700 my-2">
+    <!-- Conditional Display for FUNCTIONS text -->
+    <p *ngIf="!isCollapsed" class="text-gray-400 text-xs px-4">OVERVIEW</p>
+    <p *ngIf="isCollapsed" class="text-gray-400 text-xs px-4 text-center">VIEW</p>
+    <hr class="border-t border-gray-700 my-2">
+    <a routerLink="/get-monitors" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-display-fill" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Monitors</span>
+    </a>
+    <a routerLink="/get-televisions" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-tv" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Televisions</span>
+    </a>
+    <a routerLink="/get-projectors" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-projector-fill" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Projectors</span>
+    </a>
+
+    <!-- Divider Line -->
+    <hr class="border-t border-gray-700 my-2">
+    <!-- Conditional Display for FUNCTIONS text -->
+    <p *ngIf="!isCollapsed" class="text-gray-400 text-xs px-4">FUNCTIONS</p>
+    <p *ngIf="isCollapsed" class="text-gray-400 text-xs px-4 text-center">FUNC</p>
+    <hr class="border-t border-gray-700 my-2">
+    <a routerLink="/add-devices" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-plus-circle" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Add New Device</span>
+    </a>
+    <a routerLink="/device-management" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-option" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Sell & Delete</span>
+    </a>
+    <a routerLink="/edit-devices" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-pen" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Edit Device</span>
+    </a>
+    <!-- Divider Line -->
+    <hr class="border-t border-gray-700 my-2">
+    <!-- Conditional Display for FUNCTIONS text -->
+    <p *ngIf="!isCollapsed" class="text-gray-400 text-xs px-4">COMPARISION</p>
+    <p *ngIf="isCollapsed" class="text-gray-400 text-xs px-4 text-center">COMP</p>
+    <hr class="border-t border-gray-700 my-2">
+    <a routerLink="/product-comparision" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-arrows-fullscreen" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Product Comparision</span>
+    </a>
+    <!-- Divider Line -->
+    <hr class="border-t border-gray-700 my-2">
+    <!-- Conditional Display for FUNCTIONS text -->
+    <p *ngIf="!isCollapsed" class="text-gray-400 text-xs px-4">COUNTER</p>
+    <p *ngIf="isCollapsed" class="text-gray-400 text-xs px-4 text-center">NUM</p>
+    <hr class="border-t border-gray-700 my-2">
+    <a routerLink="/number-of-devices" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-123" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Number of Devices</span>
+    </a>
+    <a routerLink="/number-od-devices-tech-inf" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-journal-code" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Num + Tech</span>
+    </a>
+    <!-- Divider Line -->
+    <hr class="border-t border-gray-700 my-2">
+    <!-- Conditional Display for FUNCTIONS text -->
+    <p *ngIf="!isCollapsed" class="text-gray-400 text-xs px-4">REVENUE</p>
+    <p *ngIf="isCollapsed" class="text-gray-400 text-xs px-4 text-center">REVEN</p>
+    <hr class="border-t border-gray-700 my-2">
+    <a routerLink="/sales-revenue" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-bank" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Sales Revenue</span>
+    </a>
+    <a routerLink="/sales-logs" class="py-3 px-4 flex items-center hover:bg-gray-700" [ngClass]="{'justify-center': isCollapsed}" (click)="closeMenu()">
+      <i class="bi bi-receipt" [ngClass]="{'mr-3': !isCollapsed}"></i>
+      <span *ngIf="!isCollapsed">Sales Logs</span>
+    </a>
+    <!-- Divider Line -->
+    <hr class="border-t border-gray-700 my-2">
+  </nav>
+</div>
+

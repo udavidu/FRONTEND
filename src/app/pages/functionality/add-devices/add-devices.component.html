@@ -1,0 +1,187 @@
+<div class="bg-gray-900 w-full h-20 fixed top-0 flex items-center" style="margin-left: -16px; justify-content: start;">
+  <h1 class="text-2xl font-bold text-white ml-9 flex items-center"><i class="bi bi-plus-circle mr-4"></i>Add New Device</h1>
+</div>
+
+<div class="flex flex-col items-center lg:flex-row lg:items-start lg:justify-center p-6 space-y-4 lg:space-y-0 lg:space-x-6 mt-20">
+  <div class="w-full max-w-6xl bg-white shadow-lg rounded-lg p-8">
+    <h2 class="text-2xl font-bold mb-8 text-left">Add New Device</h2>
+
+    <!-- Form -->
+    <form #deviceForm="ngForm" (ngSubmit)="confirmAdd()" class="space-y-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+
+        <!-- Row 1 -->
+        <div>
+          <label for="productType" class="block text-sm font-medium text-gray-700">Product Type</label>
+          <select id="productType" [(ngModel)]="productType" name="productType" required
+                  (change)="onProductTypeChange()"
+                  class="mt-1 block w-3/4  p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option value="Monitor">Monitor</option>
+            <option value="Television">Television</option>
+            <option value="Projector">Projector</option>
+          </select>
+        </div>
+        <div>
+          <label for="brand" class="block text-sm font-medium text-gray-700">Brand</label>
+          <input id="brand" type="text" [(ngModel)]="brand" name="brand" required
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="model" class="block text-sm font-medium text-gray-700">Model</label>
+          <input id="model" type="text" [(ngModel)]="model" name="model" required
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="displaySize" class="block text-sm font-medium text-gray-700">Display Size</label>
+          <input id="displaySize" type="number" [(ngModel)]="displaySize" name="displaySize"
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="refreshRate" class="block text-sm font-medium text-gray-700">Refresh Rate</label>
+          <input id="refreshRate" type="text" [(ngModel)]="refreshRate" name="refreshRate"
+                 class="mt-1 block w-3/4  p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="pixelResolutions" class="block text-sm font-medium text-gray-700">Pixel Resolutions (NxN)</label>
+          <input id="pixelResolutions" type="text" [(ngModel)]="pixelResolutions" name="pixelResolutions"
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Row 2 -->
+        <div>
+          <label for="displayTech" class="block text-sm font-medium text-gray-700">Display Technology</label>
+          <select id="displayTech" [(ngModel)]="displayTech" name="displayTech"
+                  [disabled]="!productType"
+                  class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option *ngFor="let tech of filteredDisplayTechOptions" [value]="tech">{{ tech }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="maxResolutions" class="block text-sm font-medium text-gray-700">Max Resolutions</label>
+          <select id="maxResolutions" type="text" [(ngModel)]="maxResolutions" name="maxResolutions"
+                  class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option *ngFor="let tech of filteredResolutionsOptions" [value]="tech"> {{ tech }} </option>
+          </select>
+        </div>
+        <div>
+          <label for="connections" class="block text-sm font-medium text-gray-700">Connections</label>
+          <input id="connections" type="text" [(ngModel)]="connections" name="connections"
+                 class="mt-1 block w-3/4  p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="output" class="block text-sm font-medium text-gray-700">Output</label>
+          <input id="output" type="text" [(ngModel)]="output" name="output"
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Row 3 -->
+        <div>
+          <label for="speaker" class="block text-sm font-medium text-gray-700">Speaker</label>
+          <select id="speaker" type="text" [(ngModel)]="speaker" name="speaker"
+                  class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="smart" class="block text-sm font-medium text-gray-700">Smart</label>
+          <select id="smart" type="text" [(ngModel)]="smart" name="smart"
+                  class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="os" class="block text-sm font-medium text-gray-700">Operating System</label>
+          <input id="os" type="text" [(ngModel)]="os" name="os"
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+        </div>
+        <div>
+          <label for="bluetooth" class="block text-sm font-medium text-gray-700">Bluetooth</label>
+          <select id="bluetooth" type="text" [(ngModel)]="bluetooth" name="bluetooth"
+                  class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <!-- Row 4 -->
+        <div>
+          <label for="wirelessConnections" class="block text-sm font-medium text-gray-700">Wireless Connections</label>
+          <select id="wirelessConnections" type="text" [(ngModel)]="wirelessConnections" name="wirelessConnections"
+                  class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="productionYear" class="block text-sm font-medium text-gray-700">Production Year</label>
+          <input id="productionYear" type="number" [(ngModel)]="productionYear" name="productionYear" required
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="vesa" class="block text-sm font-medium text-gray-700">VESA</label>
+          <select id="vesa" type="text" [(ngModel)]="vesa" name="vesa"
+                  class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="" disabled></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
+          <input id="color" type="text" [(ngModel)]="color" name="color"
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Row 5 -->
+        <div>
+          <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+          <input id="price" type="number" [(ngModel)]="price" name="price" required
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="stockDate" class="block text-sm font-medium text-gray-700">Stock Date</label>
+          <input id="stockDate" type="date" [(ngModel)]="stockDate" name="stockDate" required
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+          <input id="stock" type="number" [(ngModel)]="stock" name="stock" required
+                 class="mt-1 block w-3/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+      </div>
+
+      <!-- Confirmation Button at the bottom -->
+      <div class="text-center mt-8">
+        <button type="button" (click)="confirmAdd()"
+                class="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded hover:bg-red-600 transition duration-300">
+          Add Device
+        </button>
+      </div>
+    </form>
+
+
+
+    <div *ngIf="showConfirmation" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+      <div class="bg-white p-6 rounded-lg shadow-xl">
+        <h2 class="text-lg font-semibold mb-4 text-gray-900">Are you sure you want to  this device?</h2>
+        <div class="flex justify-end space-x-4">
+          <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300" (click)="onConfirm(deviceForm)">Yes</button>
+          <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300" (click)="onCancel()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,109 @@
+<div class="bg-gray-900 w-full h-20 fixed top-0 flex items-center justify-between px-4 space-x-4" style="margin-left: -16px;">
+  <h1 class="text-2xl font-bold text-white flex items-center">
+    <i class="bi bi-arrows-fullscreen mr-4"></i>Product Comparison
+  </h1>
+
+  <!-- Inline Form Inputs in Header -->
+  <form (ngSubmit)="onSubmit(filterForm)" #filterForm="ngForm" class="flex items-center space-x-4 fixed" style="right: 100px;">
+    <!-- Product Type -->
+    <div class="flex items-center">
+      <select type="text" placeholder="Product Type" id="productType" name="productType" [(ngModel)]="productType" (ngModelChange)="onFilterChange()" class="bg-gray-800 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500 w-32 sm:w-48 md:w-64 lg:w-40" required>
+        <option value="" disabled></option>
+        <option value="Monitor">Monitor</option>
+        <option value="Television">Television</option>
+        <option value="Projector">Projector</option>
+      </select>
+    </div>
+
+    <!-- Display Size -->
+    <div class="flex items-center">
+      <input type="text" placeholder="Display Size" id="displaySize" name="displaySize" [(ngModel)]="displaySize" (ngModelChange)="onFilterChange()" class="bg-gray-800 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500 w-32 sm:w-48 md:w-64 lg:w-40" required>
+    </div>
+
+    <!-- Brand -->
+    <div class="flex items-center">
+      <input type="text" placeholder="Brand" id="brand" name="brand" [(ngModel)]="brand" (ngModelChange)="onFilterChange()" class="bg-gray-800 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500 w-32 sm:w-48 md:w-64 lg:w-40">
+    </div>
+
+    <!-- Sort By Price -->
+    <div class="flex items-center">
+      <select id="sortByPrice" name="sortByPrice" [(ngModel)]="sortByPrice" (ngModelChange)="onFilterChange()" class="bg-gray-800 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500 w-32 sm:w-48 md:w-64 lg:w-40">
+        <option value="true">Asc</option>
+        <option value="false">Desc</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+<div class="container mx-auto mt-20">
+  <!-- Message when no filters are applied or no products are found -->
+  <div *ngIf="filteredProducts.length === 0" class="text-center text-gray-500 mt-8">
+    For Filter You Must Use Form First
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4" *ngIf="filteredProducts.length > 0">
+    <div *ngFor="let product of filteredProducts" class="hover:bg-blue-50 even:bg-gray-50">
+      <div class="bg-gray-200 p-4 rounded-lg">
+        <h5 class="text-xl font-bold">{{ product.Brand }}</h5>
+        <p class="text-gray-700"><strong>ID:</strong> {{ product.id }}</p>
+
+        <!-- Display Information Section -->
+        <div class="bg-white mt-3 rounded-lg shadow-inner">
+          <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+            <span>Display Information</span>
+            <button (click)="toggleDisplayInfo()" class="text-white focus:outline-none">
+              <i class="fas fa-eye" [ngClass]="{'fa-eye': showDisplayInfo, 'fa-eye-slash': !showDisplayInfo}"></i>
+            </button>
+          </div>
+          <div [ngClass]="getAnimationClass('display')" class="p-4" *ngIf="showDisplayInfo">
+            <p class="text-gray-700"><strong>Display Size:</strong> {{ product.DisplaySize }}</p>
+            <p class="text-gray-700"><strong>Refresh Rate:</strong> {{ product.RefreshRate }}</p>
+            <p class="text-gray-700"><strong>Display Technology:</strong> {{ product.DisplayTech }}</p>
+            <p class="text-gray-700"><strong>Pixel Resolution:</strong> {{ product.PixelResolutions }}</p>
+            <p class="text-gray-700"><strong>Max Resolution:</strong> {{ product.MaxResolutions }}</p>
+          </div>
+        </div>
+
+        <!-- Connectivity Section -->
+        <div class="bg-white mt-3 rounded-lg shadow-inner">
+          <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+            <span>Connectivity</span>
+            <button (click)="toggleConnectivity()" class="text-white focus:outline-none">
+              <i class="fas fa-eye" [ngClass]="{'fa-eye': showConnectivity, 'fa-eye-slash': !showConnectivity}"></i>
+            </button>
+          </div>
+          <div [ngClass]="getAnimationClass('connectivity')" class="p-4" *ngIf="showConnectivity">
+            <p class="text-gray-700"><strong>Outputs:</strong> {{ product.Output }}</p>
+            <p class="text-gray-700"><strong>Speaker:</strong> {{ product.Speaker }}</p>
+            <p class="text-gray-700"><strong>Wireless Connections:</strong> {{ product.WirelessConnections }}</p>
+            <p class="text-gray-700"><strong>Bluetooth:</strong> {{ product.Bluetooth }}</p>
+            <p class="text-gray-700"><strong>Connections:</strong> {{ product.Connenctions }}</p>
+            <p class="text-gray-700"><strong>Smart:</strong> {{ product.Smart }}</p>
+            <p class="text-gray-700"><strong>OS:</strong> {{ product.OS }}</p>
+            <p class="text-gray-700"><strong>VESA:</strong> {{ product.VESA }}</p>
+          </div>
+        </div>
+
+        <!-- Additional Information Section -->
+        <div class="bg-white mt-3 rounded-lg shadow-inner">
+          <div class="bg-gray-700 text-white flex justify-between items-center p-2 rounded-t-lg">
+            <span>Additional Information</span>
+            <button (click)="toggleAdditionalInfo()" class="text-white focus:outline-none">
+              <i class="fas fa-eye" [ngClass]="{'fa-eye': showAdditionalInfo, 'fa-eye-slash': !showAdditionalInfo}"></i>
+            </button>
+          </div>
+          <div [ngClass]="getAnimationClass('additional')" class="p-4" *ngIf="showAdditionalInfo">
+            <p class="text-gray-700"><strong>Color:</strong> {{ product.Color }}</p>
+            <p class="text-gray-700"><strong>Production Year:</strong> {{ product.ProductionYear }}</p>
+            <p class="text-gray-700"><strong>Stock Date:</strong> {{ product.StockDate }}</p>
+            <p class="text-gray-700"><strong>Stock:</strong> {{ product.Stock }}</p>
+            <p class="text-gray-700"><strong>Sold:</strong> {{ product.Sold }}</p>
+            <p class="text-gray-700"><strong>Price:</strong> {{ product.Price | currency}}</p>
+            <p class="text-gray-700"><strong>Profit:</strong> {{ product.Profit | currency }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

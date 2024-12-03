@@ -1,0 +1,143 @@
+<div class="bg-gray-900 w-full h-20 fixed top-0 flex items-center" style="margin-left: -16px; justify-content: start;">
+  <h1 class="text-2xl font-bold text-white ml-9 flex items-center"><i class="bi bi-bank mr-4"></i>Sales Revenue</h1>
+</div>
+
+<div class="flex flex-col items-center lg:items-start lg:justify-center px-4 mt-20 w-full">
+  <!-- Conditional wrapper to display sales revenue if available -->
+  <div class="w-full lg:10" *ngIf="salesRevenue && salesRevenue.ProductProfit">
+
+    <!-- Card container with a polished design and slight elevation -->
+    <div class="bg-white shadow-xl rounded-lg px-8 py-6">
+
+      <!-- Table container for sales data, with custom border and accent colors -->
+      <table class="w-full border border-gray-200 rounded-lg overflow-hidden">
+        <thead class="bg-blue-100 text-blue-700 font-semibold uppercase text-sm">
+        <tr>
+          <th class="py-3 px-5 text-left" colspan="6">Sales Revenue Summary (since the beginig of the shop's existence)</th>
+        </tr>
+        </thead>
+        <!-- Table header with background color and padding adjustments -->
+        <thead class="bg-gray-700 text-white font-semibold uppercase text-sm">
+        <tr>
+          <th class="py-4 px-5 text-left">Product Type</th>
+          <th class="py-4 px-5 text-center">Revenue</th>
+        </tr>
+        </thead>
+
+        <!-- Table body with alternating row colors for readability -->
+        <tbody>
+        <!-- Loop through each product item, styling rows with hover effect -->
+        <tr *ngFor="let product of salesRevenue.ProductProfit" class="hover:bg-blue-50 even:bg-gray-50">
+          <td class="py-3 px-5 text-gray-800 border-b border-gray-200">{{ product.ProductType }}</td>
+          <td class="py-3 px-5 text-gray-900 border-b border-gray-200 text-center">{{ product.Profit | currency }}</td>
+        </tr>
+
+        <!-- Footer row for displaying the total profit in bold -->
+        <tr class="bg-blue-100 font-bold text-blue-700">
+          <td class="py-3 px-5 border-t border-gray-900">Total Profit</td>
+          <td class="py-3 px-5 border-t border-gray-900 text-center">{{ salesRevenue.TotalProfit | currency }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="flex flex-col items-center lg:items-start lg:justify-center px-4 mt-10 w-full">
+  <div class="w-full lg:10 bg-white shadow-xl rounded-lg px-8 py-6">
+    <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+      <thead class="bg-blue-100 text-blue-700 font-semibold uppercase text-sm">
+      <tr>
+        <th class="py-3 px-5 text-center" colspan="6">Sales Revenue Summary By Date (select start date & end date)</th>
+      </tr>
+      </thead>
+
+      <thead class="bg-gray-700 text-white font-semibold uppercase text-sm">
+      <tr>
+        <th class="py-3 px-6 text-left"></th>
+
+        <!-- Start Date Picker -->
+        <th class="py-3 px-3 text-left">
+          <div class="flex items-center">
+            <span class="text-xs font-semibold mr-1">Start Date:</span>
+            <input
+              type="date"
+              id="startDate"
+              [(ngModel)]="startDate"
+              name="startDate"
+              (change)="onDateChange()"
+              required
+              class="w-29 px-1 py-1 text-sm text-gray-900 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            />
+          </div>
+        </th>
+
+        <!-- End Date Picker -->
+        <th class="py-3 px-3 text-left">
+          <div class="flex items-center">
+            <span class="text-xs font-semibold mr-1">End Date:</span>
+            <input
+              type="date"
+              id="endDate"
+              [(ngModel)]="endDate"
+              name="endDate"
+              (change)="onDateChange()"
+              required
+              class="w-29 px-1 py-1 text-sm text-gray-900 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            />
+          </div>
+        </th>
+
+        <th colspan="2" class="py-3 px-3 text-right">
+          <div class="flex items-center justify-end">
+            <span class="text-xs font-semibold mr-2">Search by ID:</span>
+            <input
+              type="text"
+              [(ngModel)]="searchId"
+              class="text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500 w-32 sm:w-48"
+              placeholder="Search by ID"
+            />
+          </div>
+        </th>
+      </tr>
+      </thead>
+
+      <thead *ngIf="filteredRevenueData && filteredRevenueData.length > 0">
+      <tr>
+        <td colspan="5" class="text-center text-blue-600 py-4">
+          Records from {{ startDate | date:'dd/MM/yyyy' }} to {{ endDate | date:'dd/MM/yyyy' }}
+        </td>
+      </tr>
+      </thead>
+
+      <thead class="bg-gray-700 text-white font-semibold uppercase text-sm mt-10">
+        <tr>
+          <th class="py-3 px-6 text-left">Product Type</th>
+          <th class="py-3 px-5 text-center">ID</th>
+          <th class="py-3 px-5 text-center">Num</th>
+          <th class="py-3 px-5 text-center">Price</th>
+          <th class="py-3 px-5 text-center">Revenue</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of filteredRevenueData" class="hover:bg-blue-50 even:bg-gray-50">
+          <td class="py-3 px-5 text-gray-800 border-b border-gray-200">{{ item.type }}</td>
+          <td class="py-3 px-5 text-gray-800 border-b border-gray-200 text-center">{{ item.id }}</td>
+          <td class="py-3 px-5 text-gray-800 border-b border-gray-200 text-center">{{ item.number }}</td>
+          <td class="py-3 px-5 text-gray-800 border-b border-gray-200 text-center">{{ item.price }}</td>
+          <td class="py-3 px-5 text-gray-800 border-b border-gray-200 text-center">{{ item.revenue }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+
