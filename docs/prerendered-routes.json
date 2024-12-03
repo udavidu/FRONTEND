@@ -1,0 +1,16 @@
+{
+  "routes": {
+    "/FRONTEND": {},
+    "/FRONTEND/add-devices": {},
+    "/FRONTEND/device-management": {},
+    "/FRONTEND/edit-devices": {},
+    "/FRONTEND/get-monitors": {},
+    "/FRONTEND/get-projectors": {},
+    "/FRONTEND/get-televisions": {},
+    "/FRONTEND/number-od-devices-tech-inf": {},
+    "/FRONTEND/number-of-devices": {},
+    "/FRONTEND/product-comparision": {},
+    "/FRONTEND/sales-logs": {},
+    "/FRONTEND/sales-revenue": {}
+  }
+}
